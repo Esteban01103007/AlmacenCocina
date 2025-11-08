@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menú de Categorías</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<button class="back-btn" onclick="window.location.href='/'">←</button>
+
+<div class="container">
+    <h1>MENÚ DE CATEGORÍAS</h1>
+
+    <div class="item" onclick="window.location.href='/categoria/Frutas'">
+        <img src="{{ url_for('static', filename='img/frutas.png') }}" alt="">
+        <div class="label">Frutas</div>
+    </div>
+
+    <div class="item" onclick="window.location.href='/categoria/Verduras'">
+        <img src="{{ url_for('static', filename='img/verduras.png') }}" alt="">
+        <div class="label">Verduras</div>
+    </div>
+
+    <div class="item" onclick="window.location.href='/categoria/Harinas'">
+        <img src="{{ url_for('static', filename='img/harinas.png') }}" alt="">
+        <div class="label">Harinas</div>
+    </div>
+
+    <div class="item" onclick="window.location.href='/categoria/Carnes'">
+        <img src="{{ url_for('static', filename='img/carnes.png') }}" alt="">
+        <div class="label">Carnes</div>
+    </div>
+
+    <div class="item" onclick="window.location.href='/categoria/Lácteos'">
+        <img src="{{ url_for('static', filename='img/lacteos.png') }}" alt="">
+        <div class="label">Lácteos</div>
+    </div>
+
+    <div class="item" onclick="window.location.href='/categoria/Bebidas'">
+        <img src="{{ url_for('static', filename='img/bebidas.png') }}" alt="">
+        <div class="label">Bebidas</div>
+    </div>
+
+    <div class="item" onclick="window.location.href='/categoria/Golosinas'">
+        <img src="{{ url_for('static', filename='img/golosinas.png') }}" alt="">
+        <div class="label">Golosinas</div>
+    </div>
+
+    <div class="item" onclick="window.location.href='/categoria/Otros'">
+        <img src="{{ url_for('static', filename='img/Otros.png') }}" alt="">
+        <div class="label">Otros</div>
+    </div>
+
+</div>
+
+</body>
+</html>

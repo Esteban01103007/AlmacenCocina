@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recetas</title>
+
+<style>
+body { background: #fafafa; font-family: Arial, sans-serif; }
+
+/* Toast */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 2000;
+}
+.toast {
+    padding: 14px 22px;
+    border-radius: 10px;
+    color: white;
+    box-shadow: 0px 4px 14px rgba(0,0,0,0.25);
+    animation: fadeInOut 4s ease forwards;
+    margin-bottom: 10px;
+}
+.toast.error { background: #ff4b4b; }
+.toast.success { background: #4cd964; }
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-10px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-10px); }
+}
+
+/* Botón volver */
+.back-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #e5e5e5;
+    border: none;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.18);
+    transition: 0.2s;
+}
+.back-btn:hover {
+    background: #d4d4d4;
+    transform: scale(1.12);
+}
+
+
+/* Título */
+.title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+/* Grid */
+.grid {
+    width: 95%;
+    max-width: 900px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+}
+
+/* Tarjetas */
+.card {
+    width: 240px;
+    padding: 25px 18px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.10);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: .25s;
+}
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0px 8px 22px rgba(0,0,0,0.18);
+}
+.card-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: #343434;
+}
+
+/* BOTÓN FLOTANTE (+) */
+.fab-add {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #FF9EBB;
+    color: white;
+    border: none;
+    font-size: 36px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
+    transition: 0.25s;
+}
+.fab-add:hover {
+    background: #FF89AA;
+    transform: scale(1.12);
+}
+</style>
+</head>
+
+<body>
+
+<!-- Mostrar mensajes si hay -->
+{% with mensajes = get_flashed_messages(with_categories=True) %}
+{% if mensajes %}
+<div class="toast-container">
+    {% for tipo, mensaje in mensajes %}
+    <div class="toast {{ tipo }}">{{ mensaje }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+
+<button class="back-btn" onclick="window.location.href='/'">←</button>
+
+<div class="title">Recetas Preparadas Recientemente</div>
+
+<div class="grid">
+    {% for r in recetas %}
+    <div class="card" onclick="window.location.href='/receta/{{ r.id }}'">
+        <div class="card-name">{{ r.nombre }}</div>
+    </div>
+    {% endfor %}
+</div>
+
+<button class="fab-add" onclick="window.location.href='/agregar_receta'">+</button>
+
+</body>
+</html>

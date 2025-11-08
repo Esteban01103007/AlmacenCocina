@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agregar producto</title>
+
+<style>
+body { background: #fafafa; font-family: Arial, sans-serif; }
+
+.container {
+    width: 90%;
+    max-width: 400px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+label {
+    font-weight: 600;
+    display: block;
+    margin-top: 14px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 20px;
+    width: 100%;
+    background: #4CAF50;
+    border: none;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+}
+button:hover { background: #3e8f45; }
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Agregar a {{ categoria }}</h2>
+
+    <form method="POST">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" type="text" name="nombre" required>
+
+        <label for="cantidad">Cantidad</label>
+        <input id="cantidad" type="text" name="cantidad" required>
+
+        <button>Guardar</button>
+    </form>
+</div>
+
+</body>
+</html>

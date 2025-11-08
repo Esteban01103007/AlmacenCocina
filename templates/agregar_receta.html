@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Agregar Receta</title>
+
+<style>
+body { background:#fafafa; font-family:Arial; }
+
+.container {
+    width: 90%;
+    max-width: 700px;
+    margin:auto;
+    margin-top:40px;
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 4px 18px rgba(0,0,0,0.15);
+}
+
+h2 { text-align:center; margin-bottom:20px; }
+
+.ingrediente-row {
+    display:flex;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+input, select {
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+.add-btn {
+    background:#4CAF50;
+    color:white;
+    border:none;
+    padding:10px 14px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.add-btn:hover { background:#3e8e41; }
+
+.submit-btn {
+    margin-top:20px;
+    width:100%;
+    background:#3e8e41;
+    color:white;
+    border:none;
+    padding:14px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:18px;
+}
+.submit-btn:hover { background:#3e8e41; }
+</style>
+
+<script>
+function agregarIngrediente() {
+    const cont = document.getElementById("ingredientes");
+    const fila = document.createElement("div");
+    fila.className = "ingrediente-row";
+
+    fila.innerHTML = `
+        <select name="ingrediente[]">
+            {% for item in inventario %}
+            <option value="{{ item.nombre }}">{{ item.nombre }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="number" name="cantidad[]" placeholder="Cantidad" required>
+    `;
+
+    cont.appendChild(fila);
+}
+</script>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Nueva Receta</h2>
+
+    <form method="POST">
+
+        <!-- Nombre -->
+        <input type="text" name="nombre" placeholder="Nombre de la receta" required><br><br>
+
+        <!-- Ingredientes -->
+        <div id="ingredientes"></div>
+
+        <button type="button" class="add-btn" onclick="agregarIngrediente()">+ Añadir Ingrediente</button>
+
+        <button class="submit-btn">Guardar Receta</button>
+    </form>
+</div>
+
+</body>
+</html>

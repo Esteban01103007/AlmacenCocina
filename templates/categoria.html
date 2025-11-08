@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ categoria }}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+.container {
+    width: 95%;
+    max-width: 900px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+/* Buscador */
+.search-box {
+    position: fixed;
+    top: 22px;
+    right: 90px;
+}
+
+.search-box input {
+    padding: 8px 14px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: 0.2s;
+}
+.search-box input:focus {
+    border-color: #4CAF50;
+    box-shadow: 0px 0px 8px rgba(76,175,80,0.4);
+}
+
+/* Botón volver */
+.back-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #e5e5e5;
+    border: none;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.18);
+    transition: 0.2s;
+}
+.back-btn:hover {
+    background: #d4d4d4;
+    transform: scale(1.12);
+}
+
+/* Encabezado centrado */
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+}
+
+/* Tabla moderna y amplia */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0px 4px 14px rgba(0,0,0,0.12);
+    border: 2px solid #e0e0e0;
+}
+th, td {
+    padding: 18px 20px;
+    text-align: left;
+    font-size: 16px;
+}
+
+th {
+    background: #f2f2f2;
+    font-weight: 600;
+    color: #444;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+tr {
+    transition: 0.15s;
+}
+tr:hover {
+    background: #f9f9f9;
+}
+
+/* Floating Action Button (botón +) */
+.fab {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    font-size: 36px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 14px rgba(0,0,0,0.25);
+    transition: 0.2s;
+}
+.fab:hover {
+    background: #3e8f45;
+    transform: scale(1.12);
+}
+</style>
+
+</head>
+<body>
+
+<button class="back-btn" onclick="window.location.href='/categorias'">←</button>
+
+<!-- 🔍 BUSCADOR -->
+<div class="search-box">
+    <input type="text" id="filtro" placeholder="Buscar...">
+</div>
+
+<div class="container">
+
+    <div class="header">
+        <h1>{{ categoria }}</h1>
+    </div>
+
+    <table>
+    <tr>
+        <th>Nombre</th>
+        <th>Cantidad</th>
+        <th></th>
+    </tr>
+
+    {% for p in productos %}
+    <tr>
+        <td>{{ p.nombre }}</td>
+        <td>{{ p.cantidad }}</td>
+        <td style="padding: 0;">
+
+    <div style="display:flex; align-items:center; gap:10px; justify-content:center;">
+
+        <!-- Botón SUMAR -->
+        <form action="/sumar/{{ p.nombre }}" method="POST" style="margin:0;">
+            <button style="
+                background:#4CAF50;
+                color:white;
+                border:none;
+                width:32px;
+                height:32px;
+                border-radius:8px;
+                cursor:pointer;
+                font-size:20px;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+            ">+</button>
+        </form>
+
+        <!-- Botón RESTAR -->
+        <form action="/restar/{{ p.nombre }}" method="POST" style="margin:0;">
+            <button style="
+                background:#FF4B4B;
+                color:white;
+                border:none;
+                width:32px;
+                height:32px;
+                border-radius:8px;
+                cursor:pointer;
+                font-size:20px;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+            ">−</button>
+        </form>
+
+    </div>
+
+</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</div>
+
+<button class="fab" onclick="window.location.href='/agregar/{{ categoria }}'">+</button>
+
+<!-- 🔍 SCRIPT FILTRO -->
+<script>
+document.getElementById("filtro").addEventListener("input", function () {
+    let filtro = this.value.toLowerCase();
+    let filas = document.querySelectorAll("table tr:not(:first-child)");
+
+    filas.forEach(fila => {
+        let nombre = fila.querySelector("td:first-child").innerText.toLowerCase();
+        fila.style.display = nombre.includes(filtro) ? "" : "none";
+    });
+});
+</script>
+
+</body>
+</html>
